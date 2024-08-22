@@ -6,21 +6,25 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
+    "@autospace/sample-lib": "link:../../libs/sample-lib",
+    "next": "14.2.6",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.6"
+    "sample-lib": "link:../libs/sample-lib",
+    "sample-list": "link:../libs/sample-list"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.6",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.6"
+    "typescript": "^5"
   }
 }
