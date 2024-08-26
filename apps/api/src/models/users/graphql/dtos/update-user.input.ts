@@ -4,5 +4,5 @@ import { User } from '@prisma/client'
 
 @InputType()
 export class UpdateUserInput extends PartialType(CreateUserInput) {
-  id: User['id']
+  uid: User['uid']
 }

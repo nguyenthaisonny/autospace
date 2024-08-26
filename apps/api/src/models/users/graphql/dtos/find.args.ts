@@ -12,6 +12,7 @@ registerEnumType(Prisma.UserScalarFieldEnum, {
 class FindManyUserArgsStrict
   implements RestrictProperties<FindManyUserArgsStrict, Omit<Prisma.UserFindManyArgs, 'include' | 'select'>>
 {
+  @Field({nullable: true})
   where: UserWhereInput
   orderBy: UserOrderByWithRelationInput[]
   cursor: UserWhereUniqueInput

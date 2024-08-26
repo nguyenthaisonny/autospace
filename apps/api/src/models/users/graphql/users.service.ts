@@ -22,9 +22,9 @@ export class UsersService {
   }
 
   update(updateUserInput: UpdateUserInput) {
-    const { id, ...data } = updateUserInput
+    const { uid, ...data } = updateUserInput
     return this.prisma.user.update({
-      where: { id },
+      where: { uid },
       data: data,
     })
   }

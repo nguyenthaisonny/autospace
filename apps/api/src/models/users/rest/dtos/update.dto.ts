@@ -3,6 +3,6 @@ import { CreateUser } from './create.dto'
 import { User } from '@prisma/client'
 
 export class UpdateUser extends PartialType(CreateUser) {
-  id: User['id']
+  uid: User['uid']
 }
 
