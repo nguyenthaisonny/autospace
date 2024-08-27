@@ -5,7 +5,7 @@ import { RestrictProperties } from 'src/common/dtos/common.input'
 @InputType()
 export class UserOrderByWithRelationInputStrict
   implements RestrictProperties<UserOrderByWithRelationInputStrict, 
-  Omit<Prisma.UserOrderByWithRelationInput, 'Credentials'|'AuthProvider'|'Admin'>
+  Omit<Prisma.UserOrderByWithRelationInput, 'Credentials'|'AuthProvider'|'Admin' | 'image'>
   >
 {
   @Field(() => Prisma.SortOrder) // Convert to Enum
