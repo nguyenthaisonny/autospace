@@ -15,7 +15,7 @@ export const AllowAuthenticated = (...roles: Role[]) =>
 
 export const GetUser = createParamDecorator((data, ctx: ExecutionContext) => {
   const context = GqlExecutionContext.create(ctx)
-  console.log(context.getContext().req.user);
-  
+  console.log(context.getContext().req.user)
+
   return context.getContext().req.user
 })

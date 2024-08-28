@@ -1,7 +1,16 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common'
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common'
 import { FindManyUserArgs, FindUniqueUserArgs } from './dtos/find.args'
 import { PrismaService } from 'src/common/prisma/prisma.service'
-import { LoginInput, LoginOutput, RegisterWithCredentialsInput, RegisterWithProviderInput } from './dtos/create-user.input'
+import {
+  LoginInput,
+  LoginOutput,
+  RegisterWithCredentialsInput,
+  RegisterWithProviderInput,
+} from './dtos/create-user.input'
 import { UpdateUserInput } from './dtos/update-user.input'
 import * as bcrypt from 'bcrypt'
 import { v4 as uuid } from 'uuid'
@@ -11,15 +20,10 @@ import { JwtService } from '@nestjs/jwt'
 export class UsersService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {}
-  
-  registerWithProvider({
-    image,
-    name,
-    uid,
-    type
-  }: RegisterWithProviderInput) {
+
+  registerWithProvider({ image, name, uid, type }: RegisterWithProviderInput) {
     return this.prisma.user.create({
       data: {
         uid,
@@ -28,9 +32,9 @@ export class UsersService {
         AuthProvider: {
           create: {
             type,
-          }
-        }
-      }
+          },
+        },
+      },
     })
   }
 
@@ -109,7 +113,6 @@ export class UsersService {
 
     return { token: jwtToken }
   }
-
 
   findAll(args: FindManyUserArgs) {
     return this.prisma.user.findMany(args)

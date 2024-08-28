@@ -5,5 +5,5 @@ import { PickType } from '@nestjs/graphql'
 export class CreateUser extends PickType(UserEntity, [
   'uid',
   'name',
-  'image'
+  'image',
 ] as const) {}

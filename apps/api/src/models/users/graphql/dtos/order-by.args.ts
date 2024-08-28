@@ -4,9 +4,14 @@ import { RestrictProperties } from 'src/common/dtos/common.input'
 
 @InputType()
 export class UserOrderByWithRelationInputStrict
-  implements RestrictProperties<UserOrderByWithRelationInputStrict, 
-  Omit<Prisma.UserOrderByWithRelationInput, 'Credentials'|'AuthProvider'|'Admin' | 'image'>
-  >
+  implements
+    RestrictProperties<
+      UserOrderByWithRelationInputStrict,
+      Omit<
+        Prisma.UserOrderByWithRelationInput,
+        'Credentials' | 'AuthProvider' | 'Admin' | 'image'
+      >
+    >
 {
   @Field(() => Prisma.SortOrder) // Convert to Enum
   uid: Prisma.SortOrder
@@ -16,11 +21,10 @@ export class UserOrderByWithRelationInputStrict
   updatedAt: Prisma.SortOrder
   @Field(() => Prisma.SortOrder)
   name: Prisma.SortOrder
-  
+
   // Todo: Add below field decorator to the SortOrder properties.
   // @Field(() => Prisma.SortOrder)
 }
-
 
 @InputType()
 export class UserOrderByWithRelationInput extends PartialType(
