@@ -18,11 +18,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "entity:gql": "npx nestjs-prisma-codegen --graphql",
+    "entity:rest": "npx nestjs-prisma-codegen --rest",
+    "entity:complete": "npx nestjs-prisma-codegen --complete"
   },
   "dependencies": {
     "@apollo/server": "^4.11.0",
-    "@autospace/sample-lib": "*",
+    "@autospace/sample-lib": "link:../libs/sample-lib",
     "@nestjs/apollo": "^12.2.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.3",
@@ -35,9 +38,10 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "graphql": "^16.6.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "sample-list": "link:../libs/sample-list",
+    "sample-lib": "link:../libs/sample-lib",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
