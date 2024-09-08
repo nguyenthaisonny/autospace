@@ -1,5 +1,12 @@
 import {
-  Controller, Get, Post, Body, Patch, Param, Delete, Query
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
 } from '@nestjs/common'
 
 import { PrismaService } from 'src/common/prisma/prisma.service'
@@ -17,7 +24,6 @@ import { AllowAuthenticated, GetUser } from 'src/common/auth/auth.decorator'
 import { GetUserType } from 'src/common/types'
 import { checkRowLevelPermission } from 'src/common/auth/util'
 
-
 @ApiTags('managers')
 @Controller('managers')
 export class ManagersController {
@@ -27,7 +33,10 @@ export class ManagersController {
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: ManagerEntity })
   @Post()
-  create(@Body() createManagerDto: CreateManager, @GetUser() user: GetUserType) {
+  create(
+    @Body() createManagerDto: CreateManager,
+    @GetUser() user: GetUserType,
+  ) {
     checkRowLevelPermission(user, createManagerDto.uid)
     return this.prisma.manager.create({ data: createManagerDto })
   }

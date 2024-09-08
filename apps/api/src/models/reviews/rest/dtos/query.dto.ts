@@ -11,4 +11,3 @@ export class ReviewQueryDto extends BaseQueryDto {
   @IsIn(Object.values(Prisma.ReviewScalarFieldEnum))
   searchBy?: string
 }
-

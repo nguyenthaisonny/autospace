@@ -11,4 +11,3 @@ export class GarageQueryDto extends BaseQueryDto {
   @IsIn(Object.values(Prisma.GarageScalarFieldEnum))
   searchBy?: string
 }
-

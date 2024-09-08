@@ -10,7 +10,11 @@ registerEnumType(Prisma.ReviewScalarFieldEnum, {
 
 @ArgsType()
 class FindManyReviewArgsStrict
-  implements RestrictProperties<FindManyReviewArgsStrict, Omit<Prisma.ReviewFindManyArgs, 'include' | 'select'>>
+  implements
+    RestrictProperties<
+      FindManyReviewArgsStrict,
+      Omit<Prisma.ReviewFindManyArgs, 'include' | 'select'>
+    >
 {
   where: ReviewWhereInput
   orderBy: ReviewOrderByWithRelationInput[]
@@ -22,9 +26,7 @@ class FindManyReviewArgsStrict
 }
 
 @ArgsType()
-export class FindManyReviewArgs extends PartialType(
-  FindManyReviewArgsStrict,
-) {}
+export class FindManyReviewArgs extends PartialType(FindManyReviewArgsStrict) {}
 
 @ArgsType()
 export class FindUniqueReviewArgs {

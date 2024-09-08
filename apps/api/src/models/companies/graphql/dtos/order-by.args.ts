@@ -7,7 +7,11 @@ import { ValetOrderByRelationAggregateInput } from 'src/models/valets/graphql/dt
 
 @InputType()
 export class CompanyOrderByWithRelationInputStrict
-  implements RestrictProperties<CompanyOrderByWithRelationInputStrict, Prisma.CompanyOrderByWithRelationInput>
+  implements
+    RestrictProperties<
+      CompanyOrderByWithRelationInputStrict,
+      Prisma.CompanyOrderByWithRelationInput
+    >
 {
   @Field(() => Prisma.SortOrder)
   id: Prisma.SortOrder
@@ -26,7 +30,6 @@ export class CompanyOrderByWithRelationInputStrict
   // Todo: Add below field decorator to the SortOrder properties.
   // @Field(() => Prisma.SortOrder)
 }
-
 
 @InputType()
 export class CompanyOrderByWithRelationInput extends PartialType(

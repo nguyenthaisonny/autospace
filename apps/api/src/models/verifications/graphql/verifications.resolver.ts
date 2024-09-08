@@ -1,7 +1,10 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { VerificationsService } from './verifications.service'
 import { Verification } from './entity/verification.entity'
-import { FindManyVerificationArgs, FindUniqueVerificationArgs } from './dtos/find.args'
+import {
+  FindManyVerificationArgs,
+  FindUniqueVerificationArgs,
+} from './dtos/find.args'
 import { CreateVerificationInput } from './dtos/create-verification.input'
 import { UpdateVerificationInput } from './dtos/update-verification.input'
 import { checkRowLevelPermission } from 'src/common/auth/util'
@@ -11,12 +14,17 @@ import { PrismaService } from 'src/common/prisma/prisma.service'
 
 @Resolver(() => Verification)
 export class VerificationsResolver {
-  constructor(private readonly verificationsService: VerificationsService,
-    private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly verificationsService: VerificationsService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @AllowAuthenticated('admin')
   @Mutation(() => Verification)
-  createVerification(@Args('createVerificationInput') args: CreateVerificationInput, @GetUser() user: GetUserType) {
+  createVerification(
+    @Args('createVerificationInput') args: CreateVerificationInput,
+    @GetUser() user: GetUserType,
+  ) {
     return this.verificationsService.create(args, user.uid)
   }
 
@@ -32,13 +40,19 @@ export class VerificationsResolver {
 
   @AllowAuthenticated('admin')
   @Mutation(() => Verification)
-  async updateVerification(@Args('updateVerificationInput') args: UpdateVerificationInput, @GetUser() user: GetUserType) {
+  async updateVerification(
+    @Args('updateVerificationInput') args: UpdateVerificationInput,
+    @GetUser() user: GetUserType,
+  ) {
     return this.verificationsService.update(args)
   }
 
   @AllowAuthenticated('admin')
   @Mutation(() => Verification)
-  async removeVerification(@Args() args: FindUniqueVerificationArgs, @GetUser() user: GetUserType) {
+  async removeVerification(
+    @Args() args: FindUniqueVerificationArgs,
+    @GetUser() user: GetUserType,
+  ) {
     return this.verificationsService.remove(args)
   }
 }

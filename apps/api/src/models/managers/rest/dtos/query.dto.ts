@@ -11,4 +11,3 @@ export class ManagerQueryDto extends BaseQueryDto {
   @IsIn(Object.values(Prisma.ManagerScalarFieldEnum))
   searchBy?: string
 }
-

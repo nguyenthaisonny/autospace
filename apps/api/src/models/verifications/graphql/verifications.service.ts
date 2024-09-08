@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { FindManyVerificationArgs, FindUniqueVerificationArgs } from './dtos/find.args'
+import {
+  FindManyVerificationArgs,
+  FindUniqueVerificationArgs,
+} from './dtos/find.args'
 import { PrismaService } from 'src/common/prisma/prisma.service'
 import { CreateVerificationInput } from './dtos/create-verification.input'
 import { UpdateVerificationInput } from './dtos/update-verification.input'

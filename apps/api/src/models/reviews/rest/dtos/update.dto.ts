@@ -5,4 +5,3 @@ import { Review } from '@prisma/client'
 export class UpdateReview extends PartialType(CreateReview) {
   id: Review['id']
 }
-

@@ -11,12 +11,17 @@ import { PrismaService } from 'src/common/prisma/prisma.service'
 
 @Resolver(() => Review)
 export class ReviewsResolver {
-  constructor(private readonly reviewsService: ReviewsService,
-    private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly reviewsService: ReviewsService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @AllowAuthenticated()
   @Mutation(() => Review)
-  createReview(@Args('createReviewInput') args: CreateReviewInput, @GetUser() user: GetUserType) {
+  createReview(
+    @Args('createReviewInput') args: CreateReviewInput,
+    @GetUser() user: GetUserType,
+  ) {
     checkRowLevelPermission(user, args.customerId)
     return this.reviewsService.create(args)
   }
@@ -33,15 +38,23 @@ export class ReviewsResolver {
 
   @AllowAuthenticated()
   @Mutation(() => Review)
-  async updateReview(@Args('updateReviewInput') args: UpdateReviewInput, @GetUser() user: GetUserType) {
-    const review = await this.prisma.review.findUnique({ where: { id: args.id } })
+  async updateReview(
+    @Args('updateReviewInput') args: UpdateReviewInput,
+    @GetUser() user: GetUserType,
+  ) {
+    const review = await this.prisma.review.findUnique({
+      where: { id: args.id },
+    })
     checkRowLevelPermission(user, review.customerId)
     return this.reviewsService.update(args)
   }
 
   @AllowAuthenticated()
   @Mutation(() => Review)
-  async removeReview(@Args() args: FindUniqueReviewArgs, @GetUser() user: GetUserType) {
+  async removeReview(
+    @Args() args: FindUniqueReviewArgs,
+    @GetUser() user: GetUserType,
+  ) {
     const review = await this.prisma.review.findUnique(args)
     checkRowLevelPermission(user, review.customerId)
     return this.reviewsService.remove(args)

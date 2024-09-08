@@ -1,8 +1,19 @@
-import { Field, InputType, PartialType, registerEnumType } from '@nestjs/graphql'
+import {
+  Field,
+  InputType,
+  PartialType,
+  registerEnumType,
+} from '@nestjs/graphql'
 import { $Enums, Prisma } from '@prisma/client'
-import { DateTimeFilter, FloatFilter, IntFilter, RestrictProperties, StringFilter } from 'src/common/dtos/common.input'
-import { BookingListRelationFilter } from 'src/models/bookings/graphql/dtos/where.args';
-import { GarageRelationFilter } from 'src/models/garages/graphql/dtos/where.args';
+import {
+  DateTimeFilter,
+  FloatFilter,
+  IntFilter,
+  RestrictProperties,
+  StringFilter,
+} from 'src/common/dtos/common.input'
+import { BookingListRelationFilter } from 'src/models/bookings/graphql/dtos/where.args'
+import { GarageRelationFilter } from 'src/models/garages/graphql/dtos/where.args'
 
 @InputType()
 export class SlotWhereUniqueInput {
@@ -22,7 +33,9 @@ export class EnumSlotTypeFilter {
 }
 
 @InputType()
-export class SlotWhereInputStrict implements RestrictProperties<SlotWhereInputStrict, Prisma.SlotWhereInput> {
+export class SlotWhereInputStrict
+  implements RestrictProperties<SlotWhereInputStrict, Prisma.SlotWhereInput>
+{
   id: IntFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
@@ -45,9 +58,7 @@ export class SlotWhereInputStrict implements RestrictProperties<SlotWhereInputSt
 }
 
 @InputType()
-export class SlotWhereInput extends PartialType(
-  SlotWhereInputStrict,
-) {}
+export class SlotWhereInput extends PartialType(SlotWhereInputStrict) {}
 
 @InputType()
 export class SlotListRelationFilter {

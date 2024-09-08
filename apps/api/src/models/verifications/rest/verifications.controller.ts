@@ -1,5 +1,12 @@
 import {
-  Controller, Get, Post, Body, Patch, Param, Delete, Query
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
 } from '@nestjs/common'
 
 import { PrismaService } from 'src/common/prisma/prisma.service'
@@ -17,7 +24,6 @@ import { AllowAuthenticated, GetUser } from 'src/common/auth/auth.decorator'
 import { GetUserType } from 'src/common/types'
 import { checkRowLevelPermission } from 'src/common/auth/util'
 
-
 @ApiTags('verifications')
 @Controller('verifications')
 export class VerificationsController {
@@ -27,8 +33,13 @@ export class VerificationsController {
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: VerificationEntity })
   @Post()
-  create(@Body() createVerificationDto: CreateVerification, @GetUser() user: GetUserType) {
-    return this.prisma.verification.create({ data: {...createVerificationDto, adminId: user.uid} })
+  create(
+    @Body() createVerificationDto: CreateVerification,
+    @GetUser() user: GetUserType,
+  ) {
+    return this.prisma.verification.create({
+      data: { ...createVerificationDto, adminId: user.uid },
+    })
   }
 
   @ApiOkResponse({ type: [VerificationEntity] })
@@ -65,7 +76,10 @@ export class VerificationsController {
   @ApiBearerAuth()
   @AllowAuthenticated('admin')
   @Delete(':id')
-  async remove(@Param('garageId') garageId: number, @GetUser() user: GetUserType) {
+  async remove(
+    @Param('garageId') garageId: number,
+    @GetUser() user: GetUserType,
+  ) {
     return this.prisma.verification.delete({ where: { garageId } })
   }
 }

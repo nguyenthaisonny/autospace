@@ -8,4 +8,3 @@ export class CreateBookingTimelineInput extends PickType(
   ['bookingId', 'status'],
   InputType,
 ) {}
-

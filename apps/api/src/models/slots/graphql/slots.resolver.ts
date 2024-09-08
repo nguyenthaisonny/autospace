@@ -11,19 +11,26 @@ import { PrismaService } from 'src/common/prisma/prisma.service'
 
 @Resolver(() => Slot)
 export class SlotsResolver {
-  constructor(private readonly slotsService: SlotsService,
+  constructor(
+    private readonly slotsService: SlotsService,
     private readonly prisma: PrismaService,
   ) {}
 
   @AllowAuthenticated()
   @Mutation(() => Slot)
-  async createSlot(@Args('createSlotInput') args: CreateSlotInput, @GetUser() user: GetUserType) {
+  async createSlot(
+    @Args('createSlotInput') args: CreateSlotInput,
+    @GetUser() user: GetUserType,
+  ) {
     const garage = await this.prisma.garage.findUnique({
-      where: {id: args.garageId},
-      include: { Company: { include: { Managers: true } } }
+      where: { id: args.garageId },
+      include: { Company: { include: { Managers: true } } },
     })
-    
-    checkRowLevelPermission(user, garage.Company.Managers.map((manager) => manager.uid))
+
+    checkRowLevelPermission(
+      user,
+      garage.Company.Managers.map((manager) => manager.uid),
+    )
     return this.slotsService.create(args)
   }
 
@@ -39,10 +46,13 @@ export class SlotsResolver {
   ) {
     const garage = await this.prisma.garage.findUnique({
       where: { id: args.garageId },
-      include: { Company: { include: { Managers: true } } }
+      include: { Company: { include: { Managers: true } } },
     })
-    checkRowLevelPermission(user, garage.Company.Managers.map((manager) => manager.uid))
-    
+    checkRowLevelPermission(
+      user,
+      garage.Company.Managers.map((manager) => manager.uid),
+    )
+
     const typeCount = await this.prisma.slot.count({
       where: { garageId: args.garageId, type: args.type },
     })
@@ -67,23 +77,39 @@ export class SlotsResolver {
 
   @AllowAuthenticated()
   @Mutation(() => Slot)
-  async updateSlot(@Args('updateSlotInput') args: UpdateSlotInput, @GetUser() user: GetUserType) {
-    const slot = await this.prisma.slot.findUnique({ 
-      where: { id: args.id } ,
-      include: { Garage: { include: { Company: { include: { Managers: true } } } } }
+  async updateSlot(
+    @Args('updateSlotInput') args: UpdateSlotInput,
+    @GetUser() user: GetUserType,
+  ) {
+    const slot = await this.prisma.slot.findUnique({
+      where: { id: args.id },
+      include: {
+        Garage: { include: { Company: { include: { Managers: true } } } },
+      },
     })
-    checkRowLevelPermission(user, slot.Garage.Company.Managers.map((manager) => manager.uid))
+    checkRowLevelPermission(
+      user,
+      slot.Garage.Company.Managers.map((manager) => manager.uid),
+    )
     return this.slotsService.update(args)
   }
 
   @AllowAuthenticated()
   @Mutation(() => Slot)
-  async removeSlot(@Args() args: FindUniqueSlotArgs, @GetUser() user: GetUserType) {
+  async removeSlot(
+    @Args() args: FindUniqueSlotArgs,
+    @GetUser() user: GetUserType,
+  ) {
     const slot = await this.prisma.slot.findUnique({
       ...args,
-      include: { Garage: { include: { Company: { include: { Managers: true } } } } }
+      include: {
+        Garage: { include: { Company: { include: { Managers: true } } } },
+      },
     })
-    checkRowLevelPermission(user, slot.Garage.Company.Managers.map((manager) => manager.uid))
+    checkRowLevelPermission(
+      user,
+      slot.Garage.Company.Managers.map((manager) => manager.uid),
+    )
     return this.slotsService.remove(args)
   }
 }

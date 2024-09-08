@@ -45,7 +45,7 @@ export class BookingWhereInputStrict
   phoneNumber: StringFilter
   passcode: StringFilter
   @Field(() => $Enums.BookingStatus)
-  status:  EnumBookingStatusFilter
+  status: EnumBookingStatusFilter
   slotId: IntFilter
   customerId: StringFilter
   ValetAssignment: ValetAssignmentRelationFilter

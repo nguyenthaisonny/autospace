@@ -5,4 +5,3 @@ import { ValetAssignment } from '@prisma/client'
 export class UpdateValetAssignment extends PartialType(CreateValetAssignment) {
   bookingId: ValetAssignment['bookingId']
 }
-

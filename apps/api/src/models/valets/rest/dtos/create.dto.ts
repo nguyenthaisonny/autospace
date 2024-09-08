@@ -3,5 +3,5 @@ import { ValetEntity } from '../entity/valet.entity'
 
 export class CreateValet extends OmitType(ValetEntity, [
   'createdAt',
-  'updatedAt'
+  'updatedAt',
 ]) {}

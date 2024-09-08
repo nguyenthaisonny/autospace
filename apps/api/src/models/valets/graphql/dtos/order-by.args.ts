@@ -8,7 +8,11 @@ import { ValetAssignmentOrderByRelationAggregateInput } from 'src/models/valet-a
 
 @InputType()
 export class ValetOrderByWithRelationInputStrict
-  implements RestrictProperties<ValetOrderByWithRelationInputStrict, Prisma.ValetOrderByWithRelationInput>
+  implements
+    RestrictProperties<
+      ValetOrderByWithRelationInputStrict,
+      Prisma.ValetOrderByWithRelationInput
+    >
 {
   @Field(() => Prisma.SortOrder)
   uid: Prisma.SortOrder
@@ -32,7 +36,6 @@ export class ValetOrderByWithRelationInputStrict
   // Todo: Add below field decorator to the SortOrder properties.
   // @Field(() => Prisma.SortOrder)
 }
-
 
 @InputType()
 export class ValetOrderByWithRelationInput extends PartialType(

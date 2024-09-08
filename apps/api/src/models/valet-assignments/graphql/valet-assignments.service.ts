@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { FindManyValetAssignmentArgs, FindUniqueValetAssignmentArgs } from './dtos/find.args'
+import {
+  FindManyValetAssignmentArgs,
+  FindUniqueValetAssignmentArgs,
+} from './dtos/find.args'
 import { PrismaService } from 'src/common/prisma/prisma.service'
 import { CreateValetAssignmentInput } from './dtos/create-valet-assignment.input'
 import { UpdateValetAssignmentInput } from './dtos/update-valet-assignment.input'

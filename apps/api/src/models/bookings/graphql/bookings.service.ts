@@ -23,11 +23,11 @@ export class BookingsService {
   }: CreateBookingInput) {
     // Create customer
     const customer = await this.prisma.customer.findUnique({
-      where: {uid: customerId},
+      where: { uid: customerId },
     })
-    if(!customer?.uid) {
+    if (!customer?.uid) {
       await this.prisma.customer.create({
-        data: {uid: customerId}
+        data: { uid: customerId },
       })
     }
 
@@ -39,10 +39,10 @@ export class BookingsService {
 
     let startDate: Date
     let endDate: Date
-    if(typeof startTime === 'string') {
+    if (typeof startTime === 'string') {
       startDate = new Date(startDate)
     }
-    if(typeof endTime === 'string') {
+    if (typeof endTime === 'string') {
       endDate = new Date(endDate)
     }
     //create slot
@@ -50,10 +50,10 @@ export class BookingsService {
       endTime: endDate,
       startTime: startDate,
       garageId,
-      type
+      type,
     })
 
-    if(!slot) {
+    if (!slot) {
       throw new NotFoundException('No slots found.')
     }
     //craete booking
@@ -69,15 +69,14 @@ export class BookingsService {
           phoneNumber,
           pricePerHour,
           totalPrice,
-          ...(valetAssignment ? {create: {valetAssignment}} : null),
-        }
+          ...(valetAssignment ? { create: { valetAssignment } } : null),
+        },
       })
       await tx.bookingTimeline.create({
-        data: 
-        { 
+        data: {
           bookingId: booking.id,
-          status: 'BOOKED'
-        }
+          status: 'BOOKED',
+        },
       })
     })
   }
@@ -106,11 +105,11 @@ export class BookingsService {
     endTime,
     startTime,
     garageId,
-    type
+    type,
   }: {
-    endTime: string | Date,
-    startTime: string | Date,
-    garageId: number,
+    endTime: string | Date
+    startTime: string | Date
+    garageId: number
     type: SlotType
   }) {
     return this.prisma.slot.findFirst({

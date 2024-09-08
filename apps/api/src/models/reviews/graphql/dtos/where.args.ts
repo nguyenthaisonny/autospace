@@ -1,6 +1,11 @@
 import { Field, InputType, PartialType } from '@nestjs/graphql'
 import { Prisma } from '@prisma/client'
-import { DateTimeFilter, IntFilter, RestrictProperties, StringFilter } from 'src/common/dtos/common.input'
+import {
+  DateTimeFilter,
+  IntFilter,
+  RestrictProperties,
+  StringFilter,
+} from 'src/common/dtos/common.input'
 import { CustomerRelationFilter } from 'src/models/customers/graphql/dtos/where.args'
 import { GarageRelationFilter } from 'src/models/garages/graphql/dtos/where.args'
 
@@ -10,7 +15,10 @@ export class ReviewWhereUniqueInput {
 }
 
 @InputType()
-export class ReviewWhereInputStrict implements RestrictProperties<ReviewWhereInputStrict, Prisma.ReviewWhereInput> {
+export class ReviewWhereInputStrict
+  implements
+    RestrictProperties<ReviewWhereInputStrict, Prisma.ReviewWhereInput>
+{
   id: IntFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
@@ -29,9 +37,7 @@ export class ReviewWhereInputStrict implements RestrictProperties<ReviewWhereInp
 }
 
 @InputType()
-export class ReviewWhereInput extends PartialType(
-  ReviewWhereInputStrict,
-) {}
+export class ReviewWhereInput extends PartialType(ReviewWhereInputStrict) {}
 
 @InputType()
 export class ReviewListRelationFilter {

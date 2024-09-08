@@ -5,4 +5,3 @@ import { Admin } from '@prisma/client'
 export class UpdateAdmin extends PartialType(CreateAdmin) {
   uid: Admin['uid']
 }
-

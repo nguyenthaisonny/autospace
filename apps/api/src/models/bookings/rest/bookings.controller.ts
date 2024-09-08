@@ -1,5 +1,12 @@
 import {
-  Controller, Get, Post, Body, Patch, Param, Delete, Query
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
 } from '@nestjs/common'
 
 import { PrismaService } from 'src/common/prisma/prisma.service'
@@ -17,7 +24,6 @@ import { AllowAuthenticated, GetUser } from 'src/common/auth/auth.decorator'
 import { GetUserType } from 'src/common/types'
 import { checkRowLevelPermission } from 'src/common/auth/util'
 
-
 @ApiTags('bookings')
 @Controller('bookings')
 export class BookingsController {
@@ -27,7 +33,10 @@ export class BookingsController {
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: BookingEntity })
   @Post()
-  create(@Body() createBookingDto: CreateBooking, @GetUser() user: GetUserType) {
+  create(
+    @Body() createBookingDto: CreateBooking,
+    @GetUser() user: GetUserType,
+  ) {
     checkRowLevelPermission(user, createBookingDto.customerId)
     return this.prisma.booking.create({ data: createBookingDto })
   }

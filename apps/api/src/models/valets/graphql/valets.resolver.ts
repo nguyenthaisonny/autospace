@@ -13,22 +13,26 @@ import { BookingStatus } from '@prisma/client'
 
 @Resolver(() => Valet)
 export class ValetsResolver {
-  constructor(private readonly valetsService: ValetsService,
+  constructor(
+    private readonly valetsService: ValetsService,
     private readonly prisma: PrismaService,
-    private readonly valetService: ValetsService
+    private readonly valetService: ValetsService,
   ) {}
 
   @AllowAuthenticated()
   @Mutation(() => Valet)
-  async createValet(@Args('createValetInput') args: CreateValetInput, @GetUser() user: GetUserType) {
+  async createValet(
+    @Args('createValetInput') args: CreateValetInput,
+    @GetUser() user: GetUserType,
+  ) {
     const company = await this.prisma.company.findFirst({
-      where: { Managers: { some: { uid: user.uid } } }
+      where: { Managers: { some: { uid: user.uid } } },
     })
-    
+
     if (!company) {
       throw new BadGatewayException('You do not have a company.')
     }
-    return this.valetsService.create({...args, companyId: company.id})
+    return this.valetsService.create({ ...args, companyId: company.id })
   }
 
   @AllowAuthenticated()
@@ -36,10 +40,8 @@ export class ValetsResolver {
   async assignValet(
     @Args('bookingId') bookingId: number,
     @Args('bookingStatus') bookingStatus: BookingStatus,
-    @GetUser() user: GetUserType
-  ) {
-    
-  }
+    @GetUser() user: GetUserType,
+  ) {}
 
   @Query(() => [Valet], { name: 'valets' })
   findAll(@Args() args: FindManyValetArgs) {
@@ -53,15 +55,23 @@ export class ValetsResolver {
 
   @AllowAuthenticated()
   @Mutation(() => Valet)
-  async updateValet(@Args('updateValetInput') args: UpdateValetInput, @GetUser() user: GetUserType) {
-    const valet = await this.prisma.valet.findUnique({ where: { uid: args.uid } })
+  async updateValet(
+    @Args('updateValetInput') args: UpdateValetInput,
+    @GetUser() user: GetUserType,
+  ) {
+    const valet = await this.prisma.valet.findUnique({
+      where: { uid: args.uid },
+    })
     checkRowLevelPermission(user, valet.uid)
     return this.valetsService.update(args)
   }
 
   @AllowAuthenticated()
   @Mutation(() => Valet)
-  async removeValet(@Args() args: FindUniqueValetArgs, @GetUser() user: GetUserType) {
+  async removeValet(
+    @Args() args: FindUniqueValetArgs,
+    @GetUser() user: GetUserType,
+  ) {
     const valet = await this.prisma.valet.findUnique(args)
     checkRowLevelPermission(user, valet.uid)
     return this.valetsService.remove(args)

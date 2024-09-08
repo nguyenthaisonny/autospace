@@ -10,7 +10,11 @@ registerEnumType(Prisma.ValetScalarFieldEnum, {
 
 @ArgsType()
 class FindManyValetArgsStrict
-  implements RestrictProperties<FindManyValetArgsStrict, Omit<Prisma.ValetFindManyArgs, 'include' | 'select'>>
+  implements
+    RestrictProperties<
+      FindManyValetArgsStrict,
+      Omit<Prisma.ValetFindManyArgs, 'include' | 'select'>
+    >
 {
   where: ValetWhereInput
   orderBy: ValetOrderByWithRelationInput[]
@@ -22,9 +26,7 @@ class FindManyValetArgsStrict
 }
 
 @ArgsType()
-export class FindManyValetArgs extends PartialType(
-  FindManyValetArgsStrict,
-) {}
+export class FindManyValetArgs extends PartialType(FindManyValetArgsStrict) {}
 
 @ArgsType()
 export class FindUniqueValetArgs {

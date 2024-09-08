@@ -5,4 +5,3 @@ import { Valet } from '@prisma/client'
 export class UpdateValet extends PartialType(CreateValet) {
   uid: Valet['uid']
 }
-

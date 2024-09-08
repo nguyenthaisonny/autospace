@@ -4,7 +4,11 @@ import { Garage, SlotType } from '@prisma/client'
 import { CreateValetAssignmentInputWithoutBookingId } from 'src/models/valet-assignments/graphql/dtos/create-valet-assignment.input'
 
 @InputType()
-export class CreateBookingInput extends PickType(Booking, ['customerId', 'endTime', 'startTime', 'vehicleNumber', 'phoneNumber'], InputType) {
+export class CreateBookingInput extends PickType(
+  Booking,
+  ['customerId', 'endTime', 'startTime', 'vehicleNumber', 'phoneNumber'],
+  InputType,
+) {
   garageId: Garage['id']
   @Field(() => SlotType)
   type: SlotType
@@ -16,4 +20,3 @@ export class CreateBookingInput extends PickType(Booking, ['customerId', 'endTim
 
   valetAssignment?: CreateValetAssignmentInputWithoutBookingId
 }
-

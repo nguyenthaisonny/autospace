@@ -52,7 +52,7 @@ const MAX_AGE = 24 * 60 * 60
     ValetAssignmentsModule,
     BookingTimelinesModule,
     ReviewsModule,
-    VerificationsModule
+    VerificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
