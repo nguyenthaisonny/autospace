@@ -119,10 +119,10 @@ export class GaragesResolver {
                     startTime: { lt: endDate },
                     endTime: { gt: startDate },
                   },
-                  {
-                    startTime: { gt: startDate },
-                    endTime: { lt: endDate },
-                  },
+                  // {
+                  //   startTime: { gt: startDate },
+                  //   endTime: { lt: endDate },
+                  // },
                 ],
               },
             },

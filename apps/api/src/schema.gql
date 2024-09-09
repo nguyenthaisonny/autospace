@@ -53,6 +53,7 @@ type Manager {
   uid: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User
 }
 
 type Valet {
@@ -63,6 +64,7 @@ type Valet {
   updatedAt: DateTime!
   displayName: String!
   licenceID: String!
+  user: User
 }
 
 type Customer {
@@ -70,6 +72,7 @@ type Customer {
   uid: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User
 }
 
 type Verification {

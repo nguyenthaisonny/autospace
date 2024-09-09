@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args, Parent, ResolveField } from '@nestjs/graphql'
 import { ValetsService } from './valets.service'
 import { Valet } from './entity/valet.entity'
 import { FindManyValetArgs, FindUniqueValetArgs } from './dtos/find.args'
@@ -9,7 +9,8 @@ import { GetUserType } from 'src/common/types'
 import { AllowAuthenticated, GetUser } from 'src/common/auth/auth.decorator'
 import { PrismaService } from 'src/common/prisma/prisma.service'
 import { BadGatewayException } from '@nestjs/common'
-import { BookingStatus } from '@prisma/client'
+import { BookingStatus, Customer } from '@prisma/client'
+import { User } from 'src/models/users/graphql/entity/user.entity'
 
 @Resolver(() => Valet)
 export class ValetsResolver {
@@ -75,5 +76,10 @@ export class ValetsResolver {
     const valet = await this.prisma.valet.findUnique(args)
     checkRowLevelPermission(user, valet.uid)
     return this.valetsService.remove(args)
+  }
+
+  @ResolveField(() => User, { nullable: true })
+  user(@Parent() valet: Valet) {
+    return this.prisma.user.findUnique({ where: { uid: valet.uid } })
   }
 }
