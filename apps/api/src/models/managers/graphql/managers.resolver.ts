@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args, Parent, ResolveField } from '@nestjs/graphql'
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql'
 import { ManagersService } from './managers.service'
 import { Manager } from './entity/manager.entity'
 import { FindManyManagerArgs, FindUniqueManagerArgs } from './dtos/find.args'

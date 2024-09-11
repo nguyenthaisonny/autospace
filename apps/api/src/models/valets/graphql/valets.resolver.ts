@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args, Parent, ResolveField } from '@nestjs/graphql'
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql'
 import { ValetsService } from './valets.service'
 import { Valet } from './entity/valet.entity'
 import { FindManyValetArgs, FindUniqueValetArgs } from './dtos/find.args'
