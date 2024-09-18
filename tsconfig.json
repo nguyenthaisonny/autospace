@@ -3,7 +3,7 @@
       "jsx": "react",
       "target": "ESNext",
       "module": "CommonJS",
-      "strict": true
+      "strict": true,
     },
     "exclude": ["node_modules"]
   }

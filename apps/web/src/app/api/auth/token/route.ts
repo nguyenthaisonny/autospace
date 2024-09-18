@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 
-export async function Get(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   const getCookies = cookies()
-  const nextAuthSesssion =
-    getCookies.get('next-auth.session-token')?.value || ''
+  const isDevelopment = process.env.NODE_ENV === 'development'
 
-  return NextResponse.json(nextAuthSesssion)
+  // Use the appropriate cookie name based on the environment
+  const cookieName = isDevelopment
+    ? 'next-auth.session-token'
+    : '__Secure-next-auth.session-token'
+
+  const nextAuthSession = getCookies.get(cookieName)?.value || ''
+
+  return NextResponse.json(nextAuthSession)
 }
