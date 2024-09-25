@@ -21,7 +21,6 @@ export const LoginForm = ({ className }: ILoginFormProps) => {
   } = useLoginForm()
   const [loading, setLoading] = useState(false)
 
-  console.log('errors: ', errors)
   const { replace } = useRouter()
   return (
     <Form

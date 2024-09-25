@@ -10,14 +10,14 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@tabler/icons-react": "^3.16.0",
     "network": "link:../libs/network",
-    "ui": "link:../libs/ui",
-    "next": "14.2.6",
+    "next": "14.2.11",
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
-    "sample-lib": "link:../libs/sample-lib"
+    "sample-lib": "link:../libs/sample-lib",
+    "ui": "link:../libs/ui",
+    "util": "link:../libs/util"
   },
   "devDependencies": {
     "@types/node": "^20",

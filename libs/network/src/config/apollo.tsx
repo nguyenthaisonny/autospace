@@ -27,7 +27,6 @@ export const ApolloProvider = ({ children }: IApolloProviderProps) => {
       },
     }
   })
-  console.log(authLink.concat(httpLink), 'authlink')
 
   const apolloClient = new ApolloClient({
     link: authLink.concat(httpLink),

@@ -1,5 +1,5 @@
 'use client'
-import { Role } from '@autospace/utils/type'
+import { Role } from '../../../../util/types'
 import { useRegisterForm } from '@autospace/forms/src/register'
 import { useMutation } from '@apollo/client'
 import { RegisterWithCredentialsDocument } from '@autospace/network/src/gql/generated'
