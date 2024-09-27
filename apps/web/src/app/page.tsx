@@ -1,41 +1,31 @@
 'use client'
-import { add } from '@autospace/sample-lib'
-import { useMutation, useQuery } from '@apollo/client'
-import { CompaniesDocument } from '@autospace/network/src/gql/generated'
-import { BrandIcon } from '@autospace/ui/src/components/atoms/BrandIcon'
-import { signOut, useSession } from 'next-auth/react'
-import { Button } from '@autospace/ui/src/components/atoms/Button'
-import { Sidebar } from '@autospace/ui/src/components/organisms/Sidebar'
-import Link from 'next/link'
+import { useQuery } from '@apollo/client'
+import { SearchGaragesDocument } from '@autospace/network/src/gql/generated'
+import { useSession } from 'next-auth/react'
+import { toLocalISOString } from '@autospace/util/date'
+
 export default function Home() {
-  const { data, loading } = useQuery(CompaniesDocument, {
+  const { data: garages, loading } = useQuery(SearchGaragesDocument, {
     variables: {
-      where: {
-        displayName: { contains: 'Plog' },
+      dateFilter: { end: '2024-09-28', start: '2024-09-27' },
+      locationFilter: {
+        ne_lat: 1,
+        ne_lng: 1,
+        sw_lat: -1,
+        sw_lng: -1,
       },
     },
   })
+  const date = new Date()
+  const localDate = toLocalISOString(date)
+  console.log(localDate)
+
+  console.log('data: ', garages)
   const { data: sessionData, status } = useSession()
-  console.log('datasession:', sessionData)
 
   return (
     <main>
-      {sessionData?.user?.uid ? (
-        <Button onClick={() => signOut()}>Signout</Button>
-      ) : (
-        <Link href="/login">Login</Link>
-      )}
-      <div className="p-12">
-        <Sidebar open={false}>hehe</Sidebar>
-      </div>
-      <div>
-        {data?.companies.map((company) => (
-          <div key={company.id}>
-            <div>{company.displayName}</div>
-            <div>{company.description}</div>
-          </div>
-        ))}
-      </div>
+      <div>{JSON.stringify(garages)}</div>
     </main>
   )
 }

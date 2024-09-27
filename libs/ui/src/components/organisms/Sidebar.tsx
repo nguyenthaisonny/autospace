@@ -7,27 +7,30 @@ import {
 } from '@headlessui/react'
 import { Fragment, ReactNode, useState } from 'react'
 import { IconMenu2, IconX } from '@tabler/icons-react'
-
+import { useDialogState } from '@autospace/util/hooks/dialog'
 export interface ISidebarProps {
-  open: boolean
+  // open: boolean
   // setOpen: (open: boolean) => void
   children: ReactNode
   blur?: boolean
 }
 
 export const Sidebar = ({
-  open,
+  // open,
   // setOpen,
   children,
   blur = true,
 }: ISidebarProps) => {
-  const [isOpen, setIsOpen] = useState(open)
+  const [isOpen, setIsOpen] = useDialogState(false)
   function close() {
     setIsOpen(false)
   }
+  function open() {
+    setIsOpen(true)
+  }
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>
+      <Button onClick={open}>
         <IconMenu2 />
       </Button>
       <Transition appear show={isOpen} as={Fragment}>

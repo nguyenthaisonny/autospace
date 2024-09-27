@@ -1884,10 +1884,41 @@ export type GetAuthProviderQuery = {
   } | null
 }
 
+export type SearchGaragesQueryVariables = Exact<{
+  dateFilter: DateFilterInput
+  locationFilter: LocationFilterInput
+  slotsFilter?: InputMaybe<SlotWhereInput>
+  garageFilter?: InputMaybe<GarageFilter>
+}>
+
+export type SearchGaragesQuery = {
+  __typename?: 'Query'
+  searchGarages: Array<{
+    __typename?: 'Garage'
+    displayName?: string | null
+    description?: string | null
+    images: Array<string>
+    address?: {
+      __typename?: 'Address'
+      lng: number
+      lat: number
+      address: string
+    } | null
+    verification?: { __typename?: 'Verification'; verified: boolean } | null
+    availableSlots: Array<{
+      __typename?: 'MinimalSlotGroupBy'
+      count: number
+      pricePerHour: number
+      type: SlotType
+    }>
+  }>
+}
+
 export const namedOperations = {
   Query: {
     Companies: 'Companies',
     GetAuthProvider: 'GetAuthProvider',
+    SearchGarages: 'SearchGarages',
   },
   Mutation: {
     RegisterWithCredentials: 'RegisterWithCredentials',
@@ -2292,3 +2323,177 @@ export const GetAuthProviderDocument = {
   GetAuthProviderQuery,
   GetAuthProviderQueryVariables
 >
+export const SearchGaragesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'SearchGarages' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'dateFilter' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'DateFilterInput' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'locationFilter' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'LocationFilterInput' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'slotsFilter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'SlotWhereInput' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'garageFilter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'GarageFilter' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'searchGarages' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'dateFilter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'dateFilter' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locationFilter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'locationFilter' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'slotsFilter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'slotsFilter' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'garageFilter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'garageFilter' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'address' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'lng' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'lat' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'address' },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'images' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'verification' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'verified' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'availableSlots' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'dateFilter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'dateFilter' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'slotsFilter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'slotsFilter' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pricePerHour' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SearchGaragesQuery, SearchGaragesQueryVariables>

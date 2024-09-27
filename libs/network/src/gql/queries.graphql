@@ -46,3 +46,24 @@ query GetAuthProvider($uid: String!) {
     type
   }
 }
+
+query SearchGarages($dateFilter: DateFilterInput!, $locationFilter: LocationFilterInput!, $slotsFilter: SlotWhereInput, $garageFilter: GarageFilter) {
+  searchGarages(dateFilter: $dateFilter, locationFilter: $locationFilter, slotsFilter: $slotsFilter, garageFilter: $garageFilter) {
+    address {
+      lng
+      lat
+      address
+    }
+    displayName
+    description
+    images
+    verification {
+      verified
+    }
+    availableSlots(dateFilter: $dateFilter, slotsFilter: $slotsFilter) {
+      count
+      pricePerHour
+      type
+    }
+  }
+}
