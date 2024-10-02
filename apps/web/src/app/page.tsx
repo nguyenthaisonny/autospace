@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import { SearchGaragesDocument } from '@autospace/network/src/gql/generated'
 import { useSession } from 'next-auth/react'
 import { toLocalISOString } from '@autospace/util/date'
+import { useEffect } from 'react'
 
 export default function Home() {
   const { data: garages, loading } = useQuery(SearchGaragesDocument, {
@@ -16,11 +17,7 @@ export default function Home() {
       },
     },
   })
-  const date = new Date()
-  const localDate = toLocalISOString(date)
-  console.log(localDate)
 
-  console.log('data: ', garages)
   const { data: sessionData, status } = useSession()
 
   return (

@@ -1,10 +1,5 @@
-import { ReactNode } from 'react'
+import { SearchPage } from '@autospace/ui/src/components/templates/SearchPage'
 
-export type ISearch = {
-  className: string
-  children: ReactNode
-}
-
-export default function Search({ className, children }: ISearch) {
-  return <>{children}</>
+export default function Page() {
+  return <SearchPage></SearchPage>
 }

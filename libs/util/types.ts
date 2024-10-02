@@ -11,3 +11,14 @@ export type MenuItem = {
   label: string
   href: string
 }
+
+export type ViewState = {
+  latitude: number
+  longitue: number
+  zoom?: number
+}
+
+export type LocationInfo = {
+  placeName: string
+  latLng: [number, number]
+}
