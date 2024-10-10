@@ -1895,6 +1895,7 @@ export type SearchGaragesQuery = {
   __typename?: 'Query'
   searchGarages: Array<{
     __typename?: 'Garage'
+    id: number
     displayName?: string | null
     description?: string | null
     images: Array<string>
@@ -2425,6 +2426,7 @@ export const SearchGaragesDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'address' },

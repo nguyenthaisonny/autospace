@@ -17,7 +17,8 @@
     "react-dom": "^18",
     "sample-lib": "link:../libs/sample-lib",
     "ui": "link:../libs/ui",
-    "util": "link:../libs/util"
+    "util": "link:../libs/util",
+    "forms": "link:../libs/forms"
   },
   "devDependencies": {
     "@types/node": "^20",

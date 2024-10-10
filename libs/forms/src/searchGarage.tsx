@@ -1,80 +1,73 @@
 import { SlotType } from '@autospace/network/src/gql/generated'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { DefaultValues, useForm, FormProvider } from 'react-hook-form'
 import { z } from 'zod'
 import { toLocalISOString } from '@autospace/util/date'
 import { ReactNode } from 'react'
+import { useForm, FormProvider, DefaultValues } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { isEndTimeValid, isStartTimeValid } from './util'
 
 const minMaxTuple = z.tuple([z.number(), z.number()])
-export const formSchemaSearchGarage = z.object({
-  startTime: z.string(),
-  endTime: z.string(),
-  locationFilter: z.object({
-    ne_lat: z.string().optional(),
-    ne_lng: z.string().optional(),
-    sw_lat: z.string().optional(),
-    sw_lng: z.string().optional(),
-  }),
-  type: z.nativeEnum(SlotType).array(),
 
-  pricePerHours: minMaxTuple.optional(),
-  width: minMaxTuple.optional(),
-  height: minMaxTuple.optional(),
-  length: minMaxTuple.optional(),
+export const formSchemaSearchGarage = z
+  .object({
+    startTime: z.string(),
+    endTime: z.string(),
 
-  skip: z.number().optional(),
-  take: z.number().optional(),
-})
+    locationFilter: z.object({
+      ne_lat: z.number(),
+      ne_lng: z.number(),
+      sw_lat: z.number(),
+      sw_lng: z.number(),
+    }),
 
-export type FormTypeSearchGarage = z.infer<typeof formSchemaSearchGarage>
+    types: z.nativeEnum(SlotType).array(),
 
-export const isStartTimeValid = (data: FormTypeSearchGarage) => {
-  const startDate = new Date(data.startTime)
-  const currentDate = new Date()
-  return startDate > currentDate
-}
+    pricePerHour: minMaxTuple.optional(),
+    height: minMaxTuple.optional(),
+    width: minMaxTuple.optional(),
+    length: minMaxTuple.optional(),
 
-export const isEndTimeValid = (data: FormTypeSearchGarage) => {
-  const startDate = new Date(data.startTime)
-  const endDate = new Date(data.endTime)
-  return endDate > startDate
-}
-
-formSchemaSearchGarage
-  .refine(isStartTimeValid, {
-    message: 'Start time should be greater than current time!',
+    skip: z.number().optional(),
+    take: z.number().optional(),
+  })
+  .refine(({ startTime }) => isStartTimeValid(startTime), {
+    message: 'Start time should be greater than current time',
     path: ['startTime'],
   })
-  .refine(isEndTimeValid, {
-    message: 'End time should be greater than start time!',
+  .refine(({ endTime, startTime }) => isEndTimeValid({ endTime, startTime }), {
+    message: 'End time should be greater than start time',
     path: ['endTime'],
   })
+
+export type FormTypeSearchGarage = z.infer<typeof formSchemaSearchGarage>
 
 export const getCurrentTimeAndOneHourLater = () => {
   const startTime = new Date()
   startTime.setMinutes(startTime.getMinutes() + 5)
-  const endTime = new Date()
+
+  const endTime = new Date(startTime)
   endTime.setHours(endTime.getHours() + 1)
+
   return {
     startTime: toLocalISOString(startTime).slice(0, 16),
-    endTime: toLocalISOString(startTime).slice(0, 16),
+    endTime: toLocalISOString(endTime).slice(0, 16),
   }
 }
 
-export const allSlotTypes = [
+export const AllSlotTypes = [
   SlotType.Bicycle,
-  SlotType.Car,
   SlotType.Bike,
+  SlotType.Car,
   SlotType.Heavy,
 ]
 
-export const formDefaultValueSearchGarages: DefaultValues<FormTypeSearchGarage> =
+export const formDefaultValuesSearchGarages: DefaultValues<FormTypeSearchGarage> =
   {
-    pricePerHours: [0, 200],
+    pricePerHour: [0, 200],
     width: [0, 20],
-    height: [0, 30],
+    height: [0, 100],
     length: [0, 100],
-    type: allSlotTypes.sort(),
+    types: AllSlotTypes.sort(),
   }
 
 export const FormProviderSearchGarage = ({
@@ -83,14 +76,14 @@ export const FormProviderSearchGarage = ({
   children: ReactNode
 }) => {
   const { startTime, endTime } = getCurrentTimeAndOneHourLater()
-  const methods = () =>
-    useForm<FormTypeSearchGarage>({
-      resolver: zodResolver(formSchemaSearchGarage),
-      defaultValues: {
-        ...formDefaultValueSearchGarages,
-        startTime,
-        endTime,
-      },
-    })
+  const methods = useForm<FormTypeSearchGarage>({
+    resolver: zodResolver(formSchemaSearchGarage),
+    defaultValues: {
+      ...formDefaultValuesSearchGarages,
+      startTime,
+      endTime,
+    },
+  })
+
   return <FormProvider {...methods}>{children}</FormProvider>
 }
